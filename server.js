@@ -21,6 +21,7 @@ app.get('/api/restaurants/:postcode', async (req, res) => {
             name: restaurant.name,
             cuisines: restaurant.cuisines.map(cuisine => cuisine.name).join(', '),
             rating: restaurant.rating.starRating,
+            logoUrl: restaurant.logoUrl, 
             // isOpen: restaurant.availability.delivery.isOpen,
             distance:restaurant.driveDistanceMeters,
             address: `${restaurant.address.firstLine}, ${restaurant.address.city}, ${restaurant.address.postalCode}`
