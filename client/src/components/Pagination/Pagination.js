@@ -1,23 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function Pagination({ total, currentPage, onPageChange }) {
-    const [startPageIndex, setStartPageIndex] = useState(0);
-    const pageCount = Math.ceil(total / 10); // Assuming each page shows 10 restaurants
-    const visiblePages = 10; // Number of visible pages at a time
+function Pagination({ total, currentPage, onPageChange, startPageIndex, setStartPageIndex }) {
+    const visiblePages = 10;
+    const pageCount = Math.ceil(total / 10);
 
     const nextPageSet = () => {
-        // Move to the next set of pages
-        const newStart = startPageIndex + visiblePages;
-        if (newStart < pageCount) {
-            setStartPageIndex(newStart);
+        if (startPageIndex + visiblePages < pageCount) {
+            setStartPageIndex(startPageIndex + visiblePages);
         }
     };
 
     const previousPageSet = () => {
-        // Move to the previous set of pages
-        const newStart = startPageIndex - visiblePages;
-        if (newStart >= 0) {
-            setStartPageIndex(newStart);
+        if (startPageIndex > 0) {
+            setStartPageIndex(startPageIndex - visiblePages);
         }
     };
 
@@ -26,7 +21,7 @@ function Pagination({ total, currentPage, onPageChange }) {
         pages.push(
             <button
                 key={i}
-                style={{ margin: '0 5px', fontWeight: currentPage === i ? 'bold' : 'normal' }}
+                style={{ margin: '0 5px', color:'orange', fontWeight: currentPage === i ? 'bold' : 'normal' }}
                 onClick={() => onPageChange(i)}
             >
                 {i + 1}
@@ -35,6 +30,7 @@ function Pagination({ total, currentPage, onPageChange }) {
     }
 
     return (
+
         <div>
             {startPageIndex > 0 && (
                 <button onClick={previousPageSet} style={{ marginRight: '5px' }}>
