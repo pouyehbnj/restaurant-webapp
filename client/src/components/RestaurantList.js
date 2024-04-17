@@ -1,6 +1,9 @@
 import React from 'react';
 
 function RestaurantList({ restaurants }) {
+    if (!restaurants || !restaurants.length) {
+        return <p>No restaurants found.</p>;
+    }
     return (
         <ul>
             {restaurants.map((restaurant, index) => (

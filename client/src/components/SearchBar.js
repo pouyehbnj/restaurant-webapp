@@ -4,10 +4,8 @@ function SearchBar({ onSearch }) {
     const [postcode, setPostcode] = useState('');
 
     const handleSubmit = (event) => {
-        console.log("hi");
         event.preventDefault();
-        console.log('Submit:', postcode);
-        onSearch(postcode); 
+        onSearch(postcode, 0);
     };
 
     return (
