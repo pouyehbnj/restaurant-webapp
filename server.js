@@ -24,7 +24,8 @@ app.get('/api/restaurants/:postcode', async (req, res) => {
             logoUrl: restaurant.logoUrl, 
             // isOpen: restaurant.availability.delivery.isOpen,
             distance:restaurant.driveDistanceMeters,
-            address: `${restaurant.address.firstLine}, ${restaurant.address.city}, ${restaurant.address.postalCode}`
+            address: `${restaurant.address.firstLine}, ${restaurant.address.city}, ${restaurant.address.postalCode}`,
+            coordinates: restaurant.address.location.coordinates
         }));
 
         

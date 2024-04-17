@@ -36,10 +36,15 @@ function RestaurantList({ restaurants }) {
                         />
                     </h3>
                 </div>
-                <p>Cuisines: {restaurant.cuisines}</p>
-                <p>Rating: {restaurant.rating}</p>
-                <p>Address: {restaurant.address}</p>
-                <p>Distance: {restaurant.distance / 1000} Km</p>
+                <p><b>Cuisines:</b> {restaurant.cuisines}</p>
+                <p><b>Rating:</b>  {restaurant.rating}</p>
+                <p>
+                
+                        <a href={`https://www.google.com/maps/?q=${restaurant.coordinates[1]},${restaurant.coordinates[0]}`} target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>
+                        <b>Address</b></a>: {restaurant.address}
+                        
+                    </p>
+                <p><b>Distance:</b>  {restaurant.distance / 1000} Km</p>
             </li>
         ))}
     </ul>

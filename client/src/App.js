@@ -45,8 +45,11 @@ function App() {
     if (sortType !== sort) {
       setSort(sortType);
       setCurrentPage(0);
+      console.log("changed current page");
       setPaginationStart(0);
-      fetchRestaurants(postcode, 0, sortType); // Fetch immediately on sort change
+      console.log("changed pagination");
+      fetchRestaurants(postcode, 0, sortType);
+      console.log("fetched"); // Fetch immediately on sort change
   }
   };
 
