@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import SearchBar from './components/SearchBar';
-import RestaurantList from './components/RestaurantList';
-import Pagination from './components/Pagination';
-
+import SearchBar from './components/Search/SearchBar';
+import RestaurantList from './components/List/RestaurantList';
+import Pagination from './components/Pagination/Pagination';
+import './App.css';
 function App() {
     const [restaurants, setRestaurants] = useState([]);
     const [total, setTotal] = useState(0);
@@ -22,18 +22,20 @@ function App() {
         }
     };
 
-    const handlePageChange = (page) => {
-        handleSearch(postcode, page);
-    };
+    const handlePageChange = (newPage) => {
+      setCurrentPage(newPage);
+      handleSearch(postcode, newPage); // Assuming postcode is maintained elsewhere or globally accessible
+  };
 
     return (
-        <div className="App">
-            <h1>Welcome to Restaurant Finder</h1>
-            <SearchBar onSearch={handleSearch} />
-            <RestaurantList restaurants={restaurants} />
-            <Pagination total={total} currentPage={currentPage} onPageChange={handlePageChange} />
-        </div>
-    );
+      <div className="App" style={{ textAlign: 'center' }}>
+          <img src="/header.png" alt="Header" className="header-image" />
+          <h1>Welcome to JET Restaurant Finder</h1>
+          <SearchBar onSearch={handleSearch} />
+          <RestaurantList restaurants={restaurants} />
+          {total > 0 && <Pagination total={total} currentPage={currentPage} onPageChange={handlePageChange} />}
+      </div>
+  );
 }
 
 export default App;

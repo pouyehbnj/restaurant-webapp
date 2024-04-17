@@ -12,7 +12,8 @@ app.get('/api/restaurants/:postcode', async (req, res) => {
     const page = parseInt(req.query.page) || 0; // Default to page 0 if not specified
     const limit = 10; // Fixed limit per page
     const url = `https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/${postcode}`;
-
+    console.log("pstcode:",postcode)
+    console.log("page numbr:",page)
     try {
         const response = await axios.get(url);
         const total = response.data.restaurants.length;
