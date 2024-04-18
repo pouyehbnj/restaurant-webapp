@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Star from './Rating';
 function RestaurantList({ restaurants }) {
     if (restaurants === null) {
         return <p>Search for restaurants by entering a postcode above.</p>;
@@ -37,7 +37,10 @@ function RestaurantList({ restaurants }) {
                     </h3>
                 </div>
                 <p><b>Cuisines:</b> {restaurant.cuisines}</p>
-                <p><b>Rating:</b>  {restaurant.rating}</p>
+                <p><b>Rating:</b>  {restaurant.rating} {Array.from({ length: 5 }, (_, i) => (
+                        <Star key={i} filled={i <= restaurant.rating-1} />
+                    ))}
+                </p>
                 <p>
                 
                         <a href={`https://www.google.com/maps/?q=${restaurant.coordinates[1]},${restaurant.coordinates[0]}`} target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>
