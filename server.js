@@ -19,8 +19,8 @@ app.get('/api/restaurants/:postcode', async (req, res) => {
         const { page = 0, sort = 'rating', isOpen = null, cuisine = null } = req.query;
         const limit = 10;
         let restaurants = []
-        const url = (`${Restaurant_URL}${postcode}`);
-        const cacheKey = `restaurants-${postcode}`;
+        const restaurn_url = (`${Restaurant_URL}${postcode}`);
+        const cacheKey = `restaurants-${postcode.toLowerCase()}`;
         console.log("pstcode:", postcode);
         console.log("page numbr:", page);
         console.log("sort:", sort);
@@ -40,7 +40,7 @@ app.get('/api/restaurants/:postcode', async (req, res) => {
             } else {
                 console.log("data from JET API")
                 // Data not in cache, fetch from external API
-                const response = await axios.get(`${Restaurant_URL}${postcode}`);
+                const response = await axios.get(restaurn_url);
                 restaurants = response.data.restaurants.map(restaurant => ({
                     name: restaurant.name,
                     cuisines: restaurant.cuisines.map(cuisine => cuisine.name).join(', '),
