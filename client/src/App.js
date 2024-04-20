@@ -12,14 +12,15 @@ function App() {
   const [postcode, setPostcode] = useState('');
   const [sort, setSort] = useState('rating');
   const [paginationStart, setPaginationStart] = useState(0);
-  const [isOpen,setIsOpen]=useState(null);
-  const [cuisine,setCuisine]=useState(null);
+  const [isOpen, setIsOpen] = useState(null);
+  const [cuisine, setCuisine] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (postcode) {
-      fetchRestaurants(postcode, currentPage, sort,isOpen,cuisine);
+      fetchRestaurants(postcode, currentPage, sort, isOpen, cuisine);
     }
-  }, [postcode, currentPage, sort,isOpen,cuisine]);
+  }, [postcode, currentPage, sort, isOpen, cuisine]);
 
   const fetchRestaurants = async (postcode, page, sort, isOpen, cuisine) => {
     let query = `/api/restaurants/${postcode}?`;
@@ -29,34 +30,48 @@ function App() {
     if (cuisine) query += `&cuisine=${cuisine}`; // Only add if not null
 
     try {
+     
       const response = await fetch(query);
+      console.log(response.ok)
+      if (!response.ok) {
+        console.log("do you come here?",response.status)
+        throw new Error(response.status);
+      }
+      
       const data = await response.json();
+      setError(null);
       setRestaurants(data.restaurants || []);
       setTotal(data.total);
       if (page === 0 || page % 10 === 0) {
         setPaginationStart(page);
       }
-      if(currentPage>= Math.ceil(data.total / 10)){
+      if (currentPage >= Math.ceil(data.total / 10)) {
         setCurrentPage(0);
       }
     } catch (error) {
-      console.error('Failed to fetch restaurants:', error);
-    }
-};
+      console.error('Failed to fetch restaurants:', error.message);
+      if (error.message.includes('400')) {
+        setError('Invalid postcode format. Please enter a correct postcode.');
+      } else {
+        setError('Server Error, please try again!');
+      } 
 
-const handleFilterChange = (filterType, value) => {
-  if (filterType === 'isOpen') {
-    setIsOpen(value); // Assuming value is a boolean
-    fetchRestaurants(postcode, 0, sort, value, cuisine);
-  } else if (filterType === 'cuisine') {
-    setCuisine(value); // Assuming value is a string
-    fetchRestaurants(postcode, 0, sort, isOpen, value);
-  }
-  // Reset page to 0 whenever filters change
-  setCurrentPage(0);
-  setPaginationStart(0);
-  // fetchRestaurants(postcode, 0, sort, isOpen, cuisine);
-};
+    }
+  };
+
+  const handleFilterChange = (filterType, value) => {
+    if (filterType === 'isOpen') {
+      setIsOpen(value); // Assuming value is a boolean
+      fetchRestaurants(postcode, 0, sort, value, cuisine);
+    } else if (filterType === 'cuisine') {
+      setCuisine(value); // Assuming value is a string
+      fetchRestaurants(postcode, 0, sort, isOpen, value);
+    }
+    // Reset page to 0 whenever filters change
+    setCurrentPage(0);
+    setPaginationStart(0);
+    // fetchRestaurants(postcode, 0, sort, isOpen, cuisine);
+  };
 
   const handleSearch = (postcode) => {
     setPostcode(postcode);
@@ -70,7 +85,7 @@ const handleFilterChange = (filterType, value) => {
       console.log("changed current page");
       setPaginationStart(0);
       console.log("changed pagination");
-      fetchRestaurants(postcode, 0, sortType,isOpen, cuisine);
+      fetchRestaurants(postcode, 0, sortType, isOpen, cuisine);
       console.log("fetched"); // Fetch immediately on sort change
     }
   };
@@ -85,6 +100,10 @@ const handleFilterChange = (filterType, value) => {
       <h1>Welcome to JET Restaurant Finder</h1>
       <SearchBar onSearch={handleSearch} onSortChange={handleSortChange} currentSort={sort} />
       <Filter onFilterChange={(filterType, value) => handleFilterChange(filterType, value)} />
+      {error && <div className="error-message">
+      <p>{error}</p>
+      <img src="https://media0.giphy.com/media/3ohzdFCn9mYfmuAmEU/200w_s.gif?cid=8d8c03589fnhmi01ajythtj6lluw6ng0v60wrm4oz4hzjpio&ep=v1_gifs_search&rid=200w_s.gif&ct=g" alt="Error" />
+    </div>}
       <RestaurantList restaurants={restaurants} />
       {total > 0 && (
         <Pagination
