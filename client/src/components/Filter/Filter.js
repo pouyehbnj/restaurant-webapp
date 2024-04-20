@@ -18,12 +18,13 @@ function Filter({ onFilterChange }) {
                     <select onChange={e => onFilterChange('cuisine', e.target.value )}>
                         <option value="">All Cuisines</option>
                         <option value="Italian">Italian</option>
+                        <option value="Pizza">Pizza</option>
                         <option value="Mexican">Mexican</option>
                         <option value="Chinese">Chinese</option>
                         <option value="Fast Food">Fast Food</option>
                         <option value="Halal">Halal</option>
                         <option value="Vegetarian">Vegetarian</option>
-                        <option value="Healthy">Healthy</option>
+                        <option value="Indian">Indian</option>
                         <option value="Middle Eastern">Middle Eastern</option>
                         <option value="Breakfast">Breakfast</option>
                         <option value="Sandwiches">Sandwiches</option>

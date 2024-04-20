@@ -1,11 +1,12 @@
 const redis = require('redis');
 const { promisify } = require('util');
-const config = require('../config'); // Ensure the path is correct for your project structure
+const config = require('../config.js'); 
 
 class RedisClient {
     constructor() {
+        const redisUrl = `${config['production'].database_url}:${config['production'].database_port}`;
         this.client = redis.createClient({
-            url: `${config['development'].database_url}:${config['development'].database_port}`
+            url: redisUrl
         });
         this.client.on('connect', () => console.log('Redis client connected'));
         this.client.on('error', (err) => console.error('Redis Client Error', err));

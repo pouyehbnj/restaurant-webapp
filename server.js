@@ -8,13 +8,16 @@ const config = require('./config.js');
 const redis = require('./database/redisClient');
 const app = express();
 
-app.use(cors());
-const PORT = config[process.env.NODE_ENV || 'development'].PORT;
-const Restaurant_URL = config[process.env.NODE_ENV || 'development'].Restaurant_URL;
+app.use(cors({
+    origin:  ['http://localhost','http://frontend','http://localhost:80','http://frontend:80']
+  }));
+const PORT = config['development'].PORT;
+const Restaurant_URL = config['development'].Restaurant_URL;
 app.use(express.static('client/build'));
 
 app.get('/api/restaurants/:postcode', async (req, res) => {
     const { postcode } = req.params;
+    console.log(postcode)
     if (Validator.isValidUKPostcode(postcode)) {
         const { page = 0, sort = 'rating', isOpen = null, cuisine = null } = req.query;
         const limit = 10;

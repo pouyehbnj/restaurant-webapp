@@ -23,7 +23,9 @@ function App() {
   }, [postcode, currentPage, sort, isOpen, cuisine]);
 
   const fetchRestaurants = async (postcode, page, sort, isOpen, cuisine) => {
-    let query = `/api/restaurants/${postcode}?`;
+  
+    const API_URL = process.env.BACKEND_URL || 'http://localhost:5000';
+    let query = `${API_URL}/api/restaurants/${postcode}?`;
     query += `page=${page || 0}`; // Default to page 0 if undefined
     query += `&sort=${sort || 'rating'}`; // Default to 'rating' if undefined
     if (isOpen !== null) query += `&isOpen=${isOpen}`; // Only add if not null
@@ -76,7 +78,8 @@ function App() {
   };
 
   const handleSearch = (postcode) => {
-    setPostcode(postcode);
+    const cleanedPostcode = postcode.trim().replace(/\s+/g, "");
+    setPostcode(cleanedPostcode);
     setCurrentPage(0);
   };
 
