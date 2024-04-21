@@ -59,26 +59,26 @@ docker-compose -f docker-compose.test.yml up --build
 
 This command runs the test suite specified in the Docker service for testing.
 
-### API Reference
-
-The backend server exposes an API that can be consumed by the frontend or any other client. Key endpoints include:
-
-- `GET /api/restaurants/:postcode`: Fetches a list of restaurants based on the provided postcode. It supports sorting and filtering via query parameters.
-
 ### Assumptions
 
-- It was assumed that the `driveDistanceMeters` field from the API indicates the distance of the restaurant from the searched postcode. This assumption was used to calculate and sort the restaurants based on distance.
-- It was also assumed that the `isOpenNowForCollection` field from the API indicates if the restaurant is open at the moment or not. 
+- **Distance Calculation**: It was assumed that the `driveDistanceMeters` field from the API indicates the distance of the restaurant from the searched postcode. This assumption was used to calculate and sort the restaurants based on distance.
+- **Operational Status**: It was also assumed that the `isOpenNowForCollection` field from the API indicates if the restaurant is open at the moment or not. 
 
 ### Potential Improvements
 
-- **Performance Optimization**: Further optimization could be achieved by implementing a reverse proxy like Nginx. Nginx can improve load times and resource utilization by managing static content, compressing responses, and using cache for frequently accessed information. This approach could reduce the load on the application server and optimizes content delivery.
-- **:Comprehensive Testing:** Expand both functional and non-functional testing to cover more edge cases, stress tests, and performance benchmarks to ensure the application scales effectively under load and maintains functionality as new features are added.
-- **UI Enhancements**: Improve the user interface with more interactive elements and a modern design approach to enhance user experience.
+- **Performance Optimization**: Implementing a reverse proxy like Nginx could enhance performance by managing static content, compressing responses, and caching frequently accessed data.
+- **Comprehensive Testing:** Expand both functional and non-functional testing to cover more edge cases, stress tests, and performance benchmarks to ensure the application scales effectively under load and maintains functionality as new features are added.
+- **Logging Mechanism**: Implementing a comprehensive logging mechanism to capture detailed information about the application's operational state and user interactions. This would facilitate better debugging, performance monitoring, and security auditing.
 - **Advanced Filtering**: Implement more commprehensive filtering options including options for all the available cuisines and additional filtering options such as delivery costs or available deals of the restaurant.
+- **UI Enhancements**: Improve the user interface with more interactive elements to enhance user experience.
 - **Responsive Design**: Enhance the responsiveness of the front-end to ensure it works seamlessly across all devices and screen sizes.
 
+### API Reference
 
+- **GET `/api/restaurants/:postcode`**: Fetches restaurants based on the postcode with support for various query parameters:
+  - **Sort**: `?sort=rating` or `?sort=distance`
+  - **Page**: `?page=number`
+  - **Open**: `?isOpen=true|false`
+  - **Cuisine**: `?cuisine=name`
 
-
-
+  Example: `GET /api/restaurants/NE97TY?page=1&sort=rating&isOpen=true&cuisine=Pizza`
