@@ -17,15 +17,13 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - NODE_ENV=production
-
-  frontend:
-    build:
-      context: ./client
-      dockerfile: dockerfile
-    ports:
-      - "80:80"
+  test:
+    build: .
     depends_on:
       - backend
+      - redis
     environment:
-      - BACKEND_URL= http://backend:5000
-
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - NODE_ENV=test
+    command: npm test

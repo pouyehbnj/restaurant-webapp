@@ -36,6 +36,14 @@ class RedisClient {
             throw err;
         }
     }
+    async delData(cacheKey){
+        try {
+            await this.client.del(cacheKey);
+        } catch (err) {
+            console.error('Failed to delete data from Redis:', err);
+            throw err;
+        }
+    }
 }
 
 module.exports = new RedisClient(); 

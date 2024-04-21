@@ -1,5 +1,5 @@
 import React from 'react';
-import Star from './Rating';
+import Star from './rating';
 function RestaurantList({ restaurants }) {
     if (restaurants === null) {
         return <p>Search for restaurants by entering a postcode above.</p>;

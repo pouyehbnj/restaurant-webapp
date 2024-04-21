@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,10 @@
     "express": "^4.19.2",
     "redis": "^4.6.13",
     "serve": "^14.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^10.4.0",
+    "supertest": "^6.3.4"
   }
 }

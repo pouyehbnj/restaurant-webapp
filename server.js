@@ -2,10 +2,10 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const path = require('path');
-const RestaurantUtils = require('./utilities/processing/restaurantUtils.js');
-const Validator = require('./utilities/validation/validationUtils.js')
+const RestaurantUtils = require('./utilities/processing/restaurant-utils.js');
+const Validator = require('./utilities/validation/validation-utils.js')
 const config = require('./config.js');
-const redis = require('./database/redisClient');
+const redis = require('./database/redis-client.js');
 const app = express();
 
 app.use(cors({
@@ -81,6 +81,12 @@ app.get('/api/restaurants/:postcode', async (req, res) => {
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
 });
+// if (require.main === module) {
+//     app.listen(PORT, () => {
+//         console.log(`Server running on http://localhost:${PORT}`);
+//     });
+// }
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+module.exports = app;

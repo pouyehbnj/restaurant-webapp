@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import SearchBar from './components/Search/SearchBar';
-import RestaurantList from './components/List/RestaurantList';
-import Pagination from './components/Pagination/Pagination';
-import Filter from './components/Filter/Filter';
+import SearchBar from './components/Search/search-bar';
+import RestaurantList from './components/List/restaurant-list';
+import Pagination from './components/Pagination/pagination';
+import Filter from './components/Filter/filter';
 import './App.css';
 
 function App() {
