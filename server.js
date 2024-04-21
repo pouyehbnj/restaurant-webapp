@@ -33,9 +33,7 @@ app.get('/api/restaurants/:postcode', async (req, res) => {
         let restaurants = []
         const restaurn_url = (`${Restaurant_URL}${postcode}`);
         const cacheKey = `restaurants-${postcode.toLowerCase()}`;
-        console.log("pstcode:", postcode);
-        console.log("page numbr:", page);
-        console.log("sort:", sort);
+        
 
         try {
             // Attempting to retrieve restaurant data from cache.
@@ -77,7 +75,6 @@ app.get('/api/restaurants/:postcode', async (req, res) => {
             res.status(500).send('Error fetching restaurant data');
         }
     }else{
-        console.log("test")
         res.status(400).send('Incorrect poscode format');
     }
 });
