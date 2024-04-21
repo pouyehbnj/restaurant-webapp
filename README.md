@@ -63,6 +63,7 @@ This command runs the test suite specified in the Docker service for testing.
 
 - **Distance Calculation**: It was assumed that the `driveDistanceMeters` field from the API indicates the distance of the restaurant from the searched postcode. This assumption was used to calculate and sort the restaurants based on distance.
 - **Operational Status**: It was also assumed that the `isOpenNowForCollection` field from the API indicates if the restaurant is open at the moment or not. 
+- **Location Coordinates**: It was assumed that the `coordinates` field in the data represents the geographic coordinates (latitude and longitude) of the restaurant's location. These coordinates are used to link each restaurant’s address to Google Maps, providing users with directional assistance directly from the application.
 
 ### Potential Improvements
 
