@@ -1,5 +1,8 @@
 import React from 'react';
 
+// The Filter component displays a list of filtered restauranst based on the input filter
+//Filtering is done based on cuisines and if the restaurant is open
+
 function Filter({ onFilterChange }) {
     return (
         <div style={{ marginBottom: '20px' }}>

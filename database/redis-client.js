@@ -1,8 +1,9 @@
 const redis = require('redis');
-const { promisify } = require('util');
-const config = require('../config.js'); 
+const config = require('../config.js');  // Importing configuration settings.
 
+// The Class for handling Redis operations.
 class RedisClient {
+    // Methof for establishing redis connection
     constructor() {
         const redisUrl = `${config['production'].database_url}:${config['production'].database_port}`;
         this.client = redis.createClient({
@@ -12,20 +13,18 @@ class RedisClient {
         this.client.on('error', (err) => console.error('Redis Client Error', err));
         this.client.connect();
 
-        // // Promisifying the necessary Redis client methods
-        // this.getAsync = promisify(this.client.get).bind(this.client);
-        // this.setAsync = promisify(this.client.set).bind(this.client);
     }
-
+    // Method to retrieve data from Redis using a cache key.
     async getData(cacheKey) {
         try {
             const data = await this.client.get(cacheKey);
-            return JSON.parse(data);  // Assuming data is stored as JSON
+            return JSON.parse(data); 
         } catch (err) {
             console.error('Failed to retrieve data from Redis:', err);
             throw err;
         }
     }
+     // Method to save data to Redis with an optional time-to-live (TTL).
 
     async setData(cacheKey, data, ttl = 3600) {
         try {
@@ -36,6 +35,7 @@ class RedisClient {
             throw err;
         }
     }
+    // Method to delete data from Redis using a cache key.
     async delData(cacheKey){
         try {
             await this.client.del(cacheKey);
@@ -46,4 +46,4 @@ class RedisClient {
     }
 }
 
-module.exports = new RedisClient(); 
+module.exports = new RedisClient(); // Exporting an instance of the RedisClient.

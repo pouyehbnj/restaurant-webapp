@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 
+// SearchBar component to handle postcode input and sorting preferences.
 function SearchBar({ onSearch, onSortChange, currentSort }) {
     const [postcode, setPostcode] = useState('');
 
+     // Function to handle form submission
     const handleSubmit = (event) => {
-        event.preventDefault();
-        onSearch(postcode);
+        event.preventDefault(); // Prevent the default form submit behavior.
+        onSearch(postcode); // Trigger the onSearch function passed as a prop.
     };
 
+
+     // Render the search bar with an input for postcode, a select for sorting, and a search button.
     return (
         <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
             <input
